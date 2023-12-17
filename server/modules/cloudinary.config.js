@@ -11,10 +11,7 @@ cloudinary.config({
 });
 
 const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: "testing",
-  },
+  cloudinary: cloudinary
 });
 
 const upload = multer({ storage: storage })

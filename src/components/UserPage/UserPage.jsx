@@ -21,8 +21,8 @@ function UserPage() {
 
   const addEvent = (event) => {
     event.preventDefault();
+    eventForm.append("image", imgUpload);
     eventForm.append("eventName", eventName);
-    eventForm.append("img", imgUpload);
     eventForm.append("genre_id", selectedGenre)
     console.log("Event Form is:", eventForm);
     dispatch({
