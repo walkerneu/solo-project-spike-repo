@@ -8,6 +8,7 @@ function UserPage() {
   
   const [eventName, setEventName] = useState('');
   const [imgUpload, setImgUpload] = useState('');
+  const [selectedGenre, setSelectedGenre] = useState('');
   const eventForm = new FormData ();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -22,8 +23,10 @@ function UserPage() {
     event.preventDefault();
     eventForm.append("eventName", eventName);
     eventForm.append("img", imgUpload);
+    eventForm.append("genre_id", selectedGenre)
+    console.log("Event Form is:", eventForm);
     dispatch({
-      type: '',
+      type: 'SAGA/ADD_EVENT',
       payload: eventForm
     });
   };
@@ -48,19 +51,28 @@ function UserPage() {
         </label>
       </div>
       <div>
-        <label htmlFor="password">
-          Password:
+        <label>
+          Event Image:
           <input
             type="file"
-            name="password"
-            value={imgUpload}
+            name="event-image"
             required
             onChange={(event) => setImgUpload(event.target.files[0])}
           />
         </label>
+        <p>
+        <label>
+          Genre:
+        <select onChange={(event) => setSelectedGenre(event.target.value)}>
+          {genres.map((genre) => (
+            <option value={genre.id}>{genre.genre_name}</option>
+          ))}
+        </select>
+        </label>
+        </p>
       </div>
       <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
+        <input className="btn" type="submit" name="submit" value="Add Event" />
       </div>
     </form>
       <LogOutButton className="btn" />
