@@ -10,7 +10,7 @@ router.post("/", cloudinaryUpload.single("image"), async (req, res) => {
   const eventName = req.body.eventName;
   const imageUrl = req.file.path;
   const userId = req.user.id;
-  const genreId = req.body.genre_id;
+  const genreIdArray = req.body.genre_id;
 
   const eventQuery = `
     INSERT INTO "events" 
@@ -28,6 +28,7 @@ router.post("/", cloudinaryUpload.single("image"), async (req, res) => {
       console.log("New Event Id:", result.rows[0].id);
       const createdEventId = result.rows[0].id;
       // Now handle the genre reference:
+      for (let genreId of genreIdArray) {
       const eventGenreQuery = `
         INSERT INTO "events_genres" 
           ("event_id", "genre_id")
@@ -39,17 +40,18 @@ router.post("/", cloudinaryUpload.single("image"), async (req, res) => {
       pool
         .query(eventGenreQuery, eventGenreValues)
         .then((result) => {
-          //Now that both are done, send back success!
-          res.sendStatus(201);
+          
         })
         .catch((err) => {
           // catch for second query
           console.log(err);
           res.sendStatus(500);
         });
+    }
+    res.sendStatus(201);
     })
     .catch((err) => {
-      // 👈 Catch for first query
+      // Catch for first query
       console.log(err);
       res.sendStatus(500);
     });

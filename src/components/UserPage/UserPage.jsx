@@ -8,7 +8,7 @@ function UserPage() {
   
   const [eventName, setEventName] = useState('');
   const [imgUpload, setImgUpload] = useState('');
-  const [selectedGenre, setSelectedGenre] = useState('');
+  const [selectedGenre, setSelectedGenre] = useState([]);
   const eventForm = new FormData ();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -17,7 +17,6 @@ function UserPage() {
     })
   }, [])
   const genres = useSelector(store => store.genres)
-  console.log("Genres:", genres);
 
   const addEvent = (event) => {
     event.preventDefault();
@@ -30,6 +29,7 @@ function UserPage() {
       payload: eventForm
     });
   };
+  console.log("Selected genres:", selectedGenre);
 
   const user = useSelector((store) => store.user);
   return (
@@ -63,7 +63,7 @@ function UserPage() {
         <p>
         <label>
           Genre:
-        <select onChange={(event) => setSelectedGenre(event.target.value)}>
+        <select multiple onChange={(event) => setSelectedGenre(event.target.value)}>
           {genres.map((genre) => (
             <option value={genre.id}>{genre.genre_name}</option>
           ))}
