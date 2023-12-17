@@ -1,7 +1,7 @@
 import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector} from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 function UserPage() {
@@ -10,6 +10,13 @@ function UserPage() {
   const [imgUpload, setImgUpload] = useState('');
   const eventForm = new FormData ();
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch({
+      type: "SAGA/GET_GENRES"
+    })
+  }, [])
+  const genres = useSelector(store => store.genres)
+  console.log("Genres:", genres);
 
   const addEvent = (event) => {
     event.preventDefault();
