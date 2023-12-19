@@ -24,10 +24,8 @@ router.post("/", cloudinaryUpload.single("image"), async (req, res) => {
   pool
     .query(eventQuery, eventValues)
     .then((result) => {
-      // ID IS HERE!
       console.log("New Event Id:", result.rows[0].id);
       const createdEventId = result.rows[0].id;
-      // Now handle the genre reference:
       for (let genreId of genreIdArray) {
       const eventGenreQuery = `
         INSERT INTO "events_genres" 
@@ -43,7 +41,6 @@ router.post("/", cloudinaryUpload.single("image"), async (req, res) => {
           
         })
         .catch((err) => {
-          // catch for second query
           console.log(err);
           res.sendStatus(500);
         });
@@ -51,7 +48,6 @@ router.post("/", cloudinaryUpload.single("image"), async (req, res) => {
     res.sendStatus(201);
     })
     .catch((err) => {
-      // Catch for first query
       console.log(err);
       res.sendStatus(500);
     });
