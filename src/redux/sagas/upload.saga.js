@@ -14,7 +14,7 @@ function* addNewEvent(action){
         });
         
       } catch (error) {
-        console.log('fetchAllGenres error:', error);
+        console.log('Error in Saga add event:', error);
       }
 }
 

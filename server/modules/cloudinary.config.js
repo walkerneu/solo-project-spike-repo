@@ -11,7 +11,10 @@ cloudinary.config({
 });
 
 const storage = new CloudinaryStorage({
-  cloudinary: cloudinary
+  cloudinary: cloudinary,
+  params: {
+    resource_type: "auto"
+  }
 });
 
 const upload = multer({ storage: storage })

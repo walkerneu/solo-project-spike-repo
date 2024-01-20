@@ -9,7 +9,7 @@ function* getAllGenres(){
           payload: response.data
         });
       } catch (error) {
-        console.log('fetchAllGenres error:', error);
+        console.log('Error in Saga get Genres:', error);
       }
 }
 
