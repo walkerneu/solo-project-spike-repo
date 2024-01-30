@@ -35,6 +35,7 @@ function UserPage() {
   return (
     <div className="container">
       <h2>Welcome, {user.username}!</h2>
+      <audio controls src="https://res.cloudinary.com/dcram3k0q1/video/upload/v1705711050/syquoqbokasssbuem1sf.wav"></audio>
       <p>Your ID is: {user.id}</p>
       <p>Lets try to add an event!</p>
       <form className="formPanel" onSubmit={addEvent}>
@@ -56,20 +57,9 @@ function UserPage() {
           <input
             type="file"
             name="event-file"
-            accept="Audio/wav"
             onChange={(event) => setFileUpload(event.target.files[0])}
           />
         </label>
-        <p>
-        <label>
-          Genre:
-        <select onChange={(event) => setSelectedGenre(event.target.value)}>
-          {genres.map((genre) => (
-            <option key={genre.id} value={genre.id}>{genre.genre_name}</option>
-          ))}
-        </select>
-        </label>
-        </p>
       </div>
       <div>
         <input className="btn" type="submit" name="submit" value="Add Event" />
